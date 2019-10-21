@@ -1,6 +1,9 @@
 body {
     background-color: #efefef;
 }
+a:hover {
+    text-decoration: none;
+}
 .main {
     margin: 30px;
     padding: 10px 30px;
@@ -17,5 +20,9 @@ body {
 .text-desc {
     font-size: 12px;
     font-weight: normal;
+    color: #999999;
+}
+.community-menu {
+    font-size: 14px;
     color: #999999;
 }

@@ -6,6 +6,7 @@ import com.learning.springboot.dto.GithubUser;
 import com.learning.springboot.mapper.UserMapper;
 import com.learning.springboot.model.User;
 import com.learning.springboot.provider.GithubProvider;
+import com.learning.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -49,19 +50,29 @@ public class AuthorizeController {
         //System.out.println(user.getLogin());  //获取github用户名
         if(githubUser != null && githubUser.getId() != null){
             User user = new User();
-            String t = UUID.randomUUID().toString();
-            user.setToken(t);
+            String tempToken = UUID.randomUUID().toString();
+            user.setToken(tempToken);
             user.setName(githubUser.getLogin());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
-            response.addCookie(new Cookie("token",t));
+            userService.createOrUpdate(user);
+            response.addCookie(new Cookie("token",tempToken));
             return "redirect:/";
         }else{
             //登录失败
             return "redirect:/";
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(
+            HttpServletRequest request,
+            HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+    }
+
 }

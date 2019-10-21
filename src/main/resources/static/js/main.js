@@ -2,17 +2,39 @@ if (typeof jQuery === 'undefined') {
     throw new Error('main\'s JavaScript requires jQuery')
 }
 
+/*
+   导航栏切换active属性
+ */
+$(function () {
+    $(".navbar-nav").find("li").each(function () {
+        var a = $(this).find("a:first")[0];
+        if ($(a).attr("href") === location.pathname) {
+            $(this).addClass("active");
+        } else {
+            $(this).removeClass("active");
+        }
+    });
+});
+
+/*
+   优化时间显示
+ */
 $(function() {
     var min = 1000 * 60;
     var hour = min * 60;
     var day = hour * 24;
 
-    var gmtModified = $("#timeAgo").text();
+    $("div .row").find(".media").each(function(){
+        var span = $(this).find("span").find("#timeAgo");
+        var date = span.text();
+        var newDate = assertTime(date);
+        span.text(newDate);
+    });
 
     function assertTime(dateTimeStamp) {
         if (isNaN(parseInt(dateTimeStamp))) {
             console.log('未获取到有效时间#timeAgo');
-            return '--:--';
+            return "--:--";
         }
         var now = new Date().getTime();
         var diff = now - dateTimeStamp;
@@ -35,10 +57,6 @@ $(function() {
             return '刚刚';
         }
     }
-
-    var newDate = assertTime(gmtModified);
-
-    $("#timeAgo").text(newDate);
 
 });
 
