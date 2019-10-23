@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <!-- 是否在代码中显示注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 数据库链接地址账号密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mycommunity?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="mysql">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成实体类的存放位置 -->
+        <javaModelGenerator targetPackage="com.learning.springboot.model" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <!-- 是否开启去除前后空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 生成xml映射文件存放位置 -->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 生成mapper类存放位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.learning.springboot.mapper"  targetProject="src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 生成对应表及类名 -->
+        <!-- User -->
+        <table schema="root" tableName="user" domainObjectName="User" ></table>
+        <!-- Question -->
+        <table schema="root" tableName="question" domainObjectName="Question" ></table>
+        <!-- Comment -->
+        <table schema="root" tableName="comment" domainObjectName="Comment" ></table>
+
+    </context>
+</generatorConfiguration>

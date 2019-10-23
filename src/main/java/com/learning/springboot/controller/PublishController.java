@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 发布及修改问题
+ */
 @Controller
 public class PublishController {
 
@@ -28,11 +31,17 @@ public class PublishController {
         return "publish";
     }
 
+    /**
+     * 编辑问题
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/publish/{id}")
     public String edit(
             @PathVariable("id") Integer id,
             Model model){
-        Question question = questionMapper.getById(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
         model.addAttribute("id",id);
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());
@@ -40,6 +49,16 @@ public class PublishController {
         return "publish";
     }
 
+    /**
+     * 发布或修改问题
+     * @param id
+     * @param title
+     * @param description
+     * @param tag
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/publish")
     public String doPublish(
             @RequestParam(value = "id",required = false) Integer id,

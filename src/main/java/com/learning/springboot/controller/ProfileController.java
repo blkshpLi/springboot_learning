@@ -12,17 +12,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 个人资料
+ */
 @Controller
 public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 重定向“我的提问”
+     * @return
+     */
     @GetMapping("/profile")
     public String reProfile(){
         return "redirect:/profile/questions";
     }
 
+    /**
+     * 个人资料的各项功能
+     * @param action
+     * @param request
+     * @param model
+     * @param page
+     * @param size
+     * @return
+     */
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
                           HttpServletRequest request,

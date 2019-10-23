@@ -34,6 +34,14 @@ public class AuthorizeController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Github账号授权
+     * @param code
+     * @param state
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -56,7 +64,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
             userService.createOrUpdate(user);
-            response.addCookie(new Cookie("token",tempToken));
+            Cookie cookie = new Cookie("token",tempToken);
+            cookie.setMaxAge(60*60);
+            response.addCookie(cookie);
             return "redirect:/";
         }else{
             //登录失败
@@ -64,6 +74,12 @@ public class AuthorizeController {
         }
     }
 
+    /**
+     * 退出登录
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/logout")
     public String logout(
             HttpServletRequest request,

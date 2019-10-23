@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>错误页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/jquery-3.3.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.js" type="application/javascript"></script>
+</head>
+<body>
+    <div class="jumbotron">
+        <h2><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;您访问的页面出了点问题!</h2>
+        <div class="message-box">
+            <p th:text="${message}">请稍后再试</p>
+            <p>如果网页没有反应，请点击<a href="/">这里</a></p>
+        </div>
+    </div>
+</body>
+</html>
