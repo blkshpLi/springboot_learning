@@ -25,7 +25,7 @@ $(function() {
     var day = hour * 24;
 
     $("div .row").find(".media").each(function(){
-        var span = $(this).find("span").find("#timeAgo");
+        var span = $(this).find(".time-ago");
         var date = span.text();
         var newDate = assertTime(date);
         span.text(newDate);
@@ -33,7 +33,7 @@ $(function() {
 
     function assertTime(dateTimeStamp) {
         if (isNaN(parseInt(dateTimeStamp))) {
-            console.log('未获取到有效时间#timeAgo');
+            console.log('未从标签中获取到有效时间#timeAgo');
             return "--:--";
         }
         var now = new Date().getTime();

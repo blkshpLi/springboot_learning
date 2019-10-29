@@ -55,6 +55,8 @@ public class AuthorizeController {
         accessToken.setState(state);
         String token = githubProvider.getAccessToken(accessToken);
         GithubUser githubUser = githubProvider.getUser(token);
+        String s = request.getHeader("Referer");
+        s.replace("http://localhost:8883","");
         //System.out.println(user.getLogin());  //获取github用户名
         if(githubUser != null && githubUser.getId() != null){
             User user = new User();
@@ -67,10 +69,10 @@ public class AuthorizeController {
             Cookie cookie = new Cookie("token",tempToken);
             cookie.setMaxAge(60*60);
             response.addCookie(cookie);
-            return "redirect:/";
+            return "redirect:" + s;
         }else{
             //登录失败
-            return "redirect:/";
+            return "redirect:" + s;
         }
     }
 

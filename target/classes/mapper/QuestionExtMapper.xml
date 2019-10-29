@@ -13,9 +13,15 @@
         <result column="tag" jdbcType="VARCHAR" property="tag" />
     </resultMap>
 
-    <update id="incView" parameterType="java.lang.Integer">
+    <update id="incView" parameterType="java.lang.Long">
         update question
         set view_count = view_count + 1
+        where id = #{id}
+    </update>
+
+    <update id="incComment" parameterType="java.lang.Long">
+        update question
+        set comment_count = comment_count + 1
         where id = #{id}
     </update>
 

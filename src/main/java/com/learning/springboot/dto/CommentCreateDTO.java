@@ -3,7 +3,7 @@ package com.learning.springboot.dto;
 import lombok.Data;
 
 @Data
-public class CommentDTO {
+public class CommentCreateDTO {
 
     private Long parentId;
 

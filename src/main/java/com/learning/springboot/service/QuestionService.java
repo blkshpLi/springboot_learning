@@ -68,7 +68,7 @@ public class QuestionService {
      * @param size
      * @return
      */
-    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size){
+    public PaginationDTO listByUserId(Long userId, Integer page, Integer size){
         //创建分页对象
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
@@ -111,7 +111,7 @@ public class QuestionService {
      * @param id
      * @return
      */
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         //若查找失败则抛出异常
         if (question == null) {
@@ -129,7 +129,7 @@ public class QuestionService {
      * 记录阅览数
      * @param id
      */
-    public void incView(Integer id) {
+    public void incView(Long id) {
         questionExtMapper.incView(id);
     }
 }
