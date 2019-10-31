@@ -10,6 +10,7 @@ import com.learning.springboot.mapper.UserMapper;
 import com.learning.springboot.model.Question;
 import com.learning.springboot.model.QuestionExample;
 import com.learning.springboot.model.User;
+import com.learning.springboot.util.ModelUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +37,23 @@ public class QuestionService {
      * @param size
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size){
+    public PaginationDTO list(Integer page, Integer size) {
         //创建分页对象
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
         paginationDTO.setPagination(totalCount, page, size);
         Integer offset = 5 * (paginationDTO.getPage() - 1);
 
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
         //以分页形式获取提问信息
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample, new RowBounds(offset, size));
         //List<Question> questions = questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for(Question question : questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            User user = (User) ModelUtils.convert(userMapper.selectByPrimaryKey(question.getCreator())
+                    , new String[]{"id", "name", "avatarUrl"});
             //User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
@@ -73,6 +77,7 @@ public class QuestionService {
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
+        questionExample.setOrderByClause("gmt_create desc");
         Integer totalCount = (int)questionMapper.countByExample(questionExample);
         paginationDTO.setPagination(totalCount, page, size);
         Integer offset = 5 * (paginationDTO.getPage() - 1);
@@ -99,7 +104,7 @@ public class QuestionService {
         if(question.getId() == null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
         }else{
             question.setGmtModified(System.currentTimeMillis());
             questionMapper.updateByPrimaryKeySelective(question);

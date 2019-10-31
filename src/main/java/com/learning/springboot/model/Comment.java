@@ -13,9 +13,11 @@ public class Comment {
 
     private Long gmtModified;
 
-    private Long likeCount;
+    private Integer likeCount;
 
     private String content;
+
+    private Integer replyCount;
 
     public Long getId() {
         return id;
@@ -65,11 +67,11 @@ public class Comment {
         this.gmtModified = gmtModified;
     }
 
-    public Long getLikeCount() {
+    public Integer getLikeCount() {
         return likeCount;
     }
 
-    public void setLikeCount(Long likeCount) {
+    public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
 
@@ -79,5 +81,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Integer getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
     }
 }

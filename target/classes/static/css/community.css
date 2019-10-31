@@ -4,6 +4,17 @@ body {
 a:hover {
     text-decoration: none;
 }
+/**
+ * remove outline
+ */
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
 .main {
     margin: 30px;
     padding: 10px 30px;
@@ -14,7 +25,7 @@ a:hover {
     margin-bottom: 15px;
 }
 .media hr {
-    margin-top: 10px;
+    margin: 10px 0;
 }
 .media-object {
     width: 40px;
@@ -70,11 +81,15 @@ a:hover {
     font-size: 16px;
     background-color: white;
     color: #b0b0b0;
-    border: 1px solid #dfdfdf;
+    border: 1px solid #ededed;
     padding: 3px 10px 0 10px;
     margin: 10px 3px 5px 0;
 }
 .btn-comment:hover {
+    background-color: #5bc0de;
+    color: white;
+}
+.btn-comment:focus {
     background-color: #5bc0de;
     color: white;
 }
@@ -83,6 +98,71 @@ a:hover {
     font-size: 14px;
     float: right;
 }
-/* 用于js辨别可操作日期，暂时不需要css样式 */
+.comment-box {
+    border: 2px solid #eee;
+    padding: 0 20px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.comment-box:before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    border: 5px solid transparent;
+    border-bottom: 5px solid #eee;
+    margin-top: -12px;
+    left: 145px;
+}
+.comment-box .media{
+    margin-top: 20px;
+}
+.comment-box .media hr{
+    margin-bottom: 0;
+}
+.no-comment {
+    padding-bottom: 20px;
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 18px;
+}
+.reply-box {
+    padding: 20px 30px;
+    display: block;
+    position: relative;
+    margin: -1px -20px;
+    background-color: #eee;
+    overflow: auto;
+}
+.btn-reply {
+    background-color: #3eadce;
+    color: white;
+}
+.btn-reply:hover,
+.btn-reply:focus {
+    background-color: #5bc0de;
+    color: white;
+}
+.reply-info {
+    color: #b0b0b0;
+    font-size: 13px;
+    margin-top: 20px;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+.reply-info .time,
+.like,.reply {
+    margin-right: 30px;
+}
+.reply-info .liked-count {
+    vertical-align: text-top;
+}
+/*
+ * This's used for JS to modify the operation date.
+ * CSS style is not needed temporarily.
+ */
 .time-ago {
+}
+.index-divider{
+    margin-bottom: 0;
 }

@@ -20,9 +20,6 @@ $(function () {
    优化时间显示
  */
 $(function() {
-    var min = 1000 * 60;
-    var hour = min * 60;
-    var day = hour * 24;
 
     $("div .row").find(".media").each(function(){
         var span = $(this).find(".time-ago");
@@ -31,35 +28,37 @@ $(function() {
         span.text(newDate);
     });
 
-    function assertTime(dateTimeStamp) {
-        if (isNaN(parseInt(dateTimeStamp))) {
-            console.log('未从标签中获取到有效时间#timeAgo');
-            return "--:--";
-        }
-        var now = new Date().getTime();
-        var diff = now - dateTimeStamp;
-        if (diff < 0) {
-            console.log('系统时间或者服务器提供的时间有误！');
-            return '刚刚';
-        }
-        var countDay = diff / day;
-        var countHour = diff / hour;
-        var countMin = diff / min;
-        if (parseInt(countDay) > 30) {
-            return dateFormat(dateTimeStamp);
-        }else if(parseInt(countDay) >= 1){
-            return parseInt(countDay) + '天前';
-        }else if(parseInt(countHour) >= 1){
-            return parseInt(countHour) + '小时前';
-        }else if(parseInt(countMin) >= 1){
-            return parseInt(countMin) + '分钟前';
-        }else{
-            return '刚刚';
-        }
-    }
-
 });
 
+function assertTime(dateTimeStamp) {
+    var min = 1000 * 60;
+    var hour = min * 60;
+    var day = hour * 24;
+    if (isNaN(parseInt(dateTimeStamp))) {
+        console.log('未从标签中获取到有效时间#timeAgo');
+        return "--:--";
+    }
+    var now = new Date().getTime();
+    var diff = now - dateTimeStamp;
+    if (diff < 0) {
+        console.log('系统时间或者服务器提供的时间有误！');
+        return '刚刚';
+    }
+    var countDay = diff / day;
+    var countHour = diff / hour;
+    var countMin = diff / min;
+    if (parseInt(countDay) > 30) {
+        return dateFormat(dateTimeStamp);
+    }else if(parseInt(countDay) >= 1){
+        return parseInt(countDay) + '天前';
+    }else if(parseInt(countHour) >= 1){
+        return parseInt(countHour) + '小时前';
+    }else if(parseInt(countMin) >= 1){
+        return parseInt(countMin) + '分钟前';
+    }else{
+        return '刚刚';
+    }
+}
 /*
   日期格式化
  */

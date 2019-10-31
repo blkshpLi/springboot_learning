@@ -1,6 +1,9 @@
 package com.learning.springboot.controller;
 
+import com.learning.springboot.dto.CommentDTO;
 import com.learning.springboot.dto.QuestionDTO;
+import com.learning.springboot.enums.CommentTypeEnum;
+import com.learning.springboot.service.CommentService;
 import com.learning.springboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 阅览提问
@@ -18,6 +22,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name="id") Long id,
@@ -38,8 +45,12 @@ public class QuestionController {
 
         //获取问题信息
         QuestionDTO questionDTO = questionService.getById(id);
+        List<CommentDTO> commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         model.addAttribute("question",questionDTO);
+        model.addAttribute("comments",commentDTOs);
         return "question";
     }
+
+
 
 }
