@@ -11,6 +11,7 @@ import com.learning.springboot.model.Question;
 import com.learning.springboot.model.QuestionExample;
 import com.learning.springboot.model.User;
 import com.learning.springboot.util.ModelUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +137,17 @@ public class QuestionService {
      */
     public void incView(Long id) {
         questionExtMapper.incView(id);
+    }
+
+    public List<Question> selectedRelated(QuestionDTO questionDTO) {
+        if(StringUtils.isBlank(questionDTO.getTag())){
+            return null;
+        }
+        String tags = questionDTO.getTag();
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setTag(tags.trim().replace(";","|"));
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        return questions;
     }
 }

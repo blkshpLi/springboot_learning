@@ -2,8 +2,8 @@ if (typeof jQuery === 'undefined') {
     throw new Error('main\'s JavaScript requires jQuery')
 }
 
-/*
-   导航栏切换active属性
+/**
+ *导航栏切换active属性
  */
 $(function () {
     $(".navbar-nav").find("li").each(function () {
@@ -16,8 +16,24 @@ $(function () {
     });
 });
 
-/*
-   优化时间显示
+
+/**
+ * 下拉框鼠标悬停事件
+ */
+$(function() {
+
+    $(document).off('click.bs.dropdown.data-api');
+
+    $(".navbar-nav").find(".dropdown").mouseover(function () {
+        $(this).addClass("open");
+    }).mouseout(function () {
+        $(this).removeClass("open");
+    });
+
+});
+
+/**
+ * 优化时间显示
  */
 $(function() {
 
@@ -59,8 +75,8 @@ function assertTime(dateTimeStamp) {
         return '刚刚';
     }
 }
-/*
-  日期格式化
+/**
+ *日期格式化
  */
 function dateFormat(dts){
     var jsonDate = new Date(parseInt(dts));

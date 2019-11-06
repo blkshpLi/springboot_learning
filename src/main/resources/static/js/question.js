@@ -73,7 +73,7 @@ function collapseComment(btn) {
 
                     var media_left = "<div class='media-left'>"
                         + "<a href='#'>"
-                        + "<img class='media-object img-rounded' "
+                        + "<img class='media-object image-rounded' "
                         + "src=" + comment.user.avatarUrl + "></a>"
                         + "</div>"
 

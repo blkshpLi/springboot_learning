@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/main.js" type="application/javascript"></script>
+    <script src="/js/publish.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:replace="navigation :: nav"></div>
@@ -28,10 +29,42 @@
                     <label for="title">问题补充（内容格式请参照右侧提示）：</label>
                     <textarea class="form-control" th:text="${description}" id="description" name="description" cols="30" rows="10"></textarea>
                 </div>
+
+                <!-- 原本的添加标签部分
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
                     <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="请输入标签，以逗号分隔">
                 </div>
+                -->
+
+                <label for="btn-add-tag">添加标签：</label><br>
+                <div class="dropup add-tag">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" th:value="${tag}" id="tag" name="tag" autocomplete="off">
+                    </div>
+                    <button type="button" class="btn btn-info" id="btn-add-tag" aria-expanded="false" data-toggle="dropdown">+ 选择标签</button>
+                    <div class="dropdown-menu add-tag-menu">
+                        <h6 class="dropdown-header" aria-labelledby="btn-add-tag">最多选择5个标签</h6>
+                        <ul class="nav nav-tabs tag-category">
+                            <li><label class="category-tip">选择类别：</label></li>
+                            <li th:each="currTag,currTagStat : ${tags}" th:id="${'tag-category-'+currTagStat.index}">
+                                <a th:href="'#tag-panel-'+${currTagStat.index}" role="tab" data-toggle="tab"
+                                   aria-expanded="false" th:aria-controls="'tag-panel-'+${currTagStat.index}"
+                                th:text="${currTag.getCategoryName()}"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" th:each="currTag,currTagStat : ${tags}"
+                                 th:id="'tag-panel-'+${currTagStat.index}">
+                                <ul class="tag-list">
+                                    <li th:each="perTag,perTagStat : ${currTag.getTags()}">
+                                        <a href="javascript:;" th:id="'tag-'+${perTagStat.index}" th:text="${perTag}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
 
                 <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
                 <button type="submit" class="btn btn-success btn-publish">发布</button>
@@ -43,7 +76,7 @@
             <br>
             • 问题补充： 补充您的问题内容，使其更加清晰直观，并提供相关资料
             <br>
-            • 选择标签： 输入一个或多个标签，用逗号隔开，每个不超过10字
+            • 选择标签： 请至少添加1个标签（最多5个标签），暂不支持自定义标签
         </div>
     </div>
 </div>

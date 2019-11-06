@@ -1,5 +1,6 @@
 package com.learning.springboot.controller;
 
+import com.learning.springboot.cache.TagCache;
 import com.learning.springboot.mapper.QuestionMapper;
 import com.learning.springboot.model.Question;
 import com.learning.springboot.model.User;
@@ -27,7 +28,8 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.getTags());
         return "publish";
     }
 
@@ -46,6 +48,7 @@ public class PublishController {
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
+        model.addAttribute("tags", TagCache.getTags());
         return "publish";
     }
 
@@ -71,6 +74,8 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.getTags());
+
 
         if(title == null || title.equals("")){
             model.addAttribute("error","标题不能为空！");

@@ -3,6 +3,7 @@ package com.learning.springboot.controller;
 import com.learning.springboot.dto.CommentDTO;
 import com.learning.springboot.dto.QuestionDTO;
 import com.learning.springboot.enums.CommentTypeEnum;
+import com.learning.springboot.model.Question;
 import com.learning.springboot.service.CommentService;
 import com.learning.springboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,12 @@ public class QuestionController {
 
         //获取问题信息
         QuestionDTO questionDTO = questionService.getById(id);
+
+        List<Question> relatedQuestions = questionService.selectedRelated(questionDTO);
+
         List<CommentDTO> commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         model.addAttribute("question",questionDTO);
+        model.addAttribute("relatedQuestions",relatedQuestions);
         model.addAttribute("comments",commentDTOs);
         return "question";
     }

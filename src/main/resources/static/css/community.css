@@ -1,7 +1,7 @@
 body {
     background-color: #efefef;
 }
-a:hover {
+a:hover,a:focus {
     text-decoration: none;
 }
 /**
@@ -19,6 +19,26 @@ a:hover {
     margin: 30px;
     padding: 10px 30px;
     background-color: white;
+}
+.navbar-nav li:hover {
+    background-color: #e0e0e0;
+    box-shadow: inset 0 3px 9px rgba(0, 0, 0, .075);
+}
+.navbar-nav .dropdown-menu {
+    padding: 0;
+    text-align: center;
+}
+.dropdown .tips {
+    left: -60px;
+}
+.dropdown .tips li a{
+    line-height: 40px;
+    font-size: 14px;
+}
+.dropdown .tips li a:hover {
+    background-color: #efefef;
+    color: #2aabd2;
+    box-shadow: none;
 }
 .btn-publish {
     float: right;
@@ -156,6 +176,129 @@ a:hover {
 }
 .reply-info .liked-count {
     vertical-align: text-top;
+}
+.label-box {
+    width: 100%;
+    height: auto;
+    margin: -10px 0 10px 0;
+}
+.label-box .label,
+.label-info{
+    margin-right: 5px;
+    font-size: 12px;
+}
+.glyphicon-tags {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.related-box {
+
+}
+.related-box ul{
+    list-style: none;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 30px;
+}
+.related-box li a{
+    color: #007b9f;
+}
+.related-box li a:hover,
+.related-box li a:focus {
+    color: #5bc0de;
+}
+.img-box {
+    padding: 20px;
+    margin-bottom: 0;
+}
+.img-box img {
+    width: 100%;
+}
+/*
+ * 发布问题界面的样式
+ */
+.add-tag {
+    display: inline-block;
+}
+.add-tag-menu {
+    height: auto;
+    width: 450px;
+}
+.add-tag .form-group {
+    margin-bottom: 0;
+}
+.category-tip {
+    padding: 6px 5px 5px 5px;
+    margin: 0;
+}
+.nav-tabs li a {
+    padding: 5px;
+    color: #808080;
+}
+.nav-tabs li a:hover {
+    color: white;
+    background-color: #8d8d8d;
+    border-radius: 4px;
+}
+.nav-tabs li.active  a,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:focus {
+    border: none;
+    color: white;
+    background-color: #8d8d8d;
+    border-radius: 4px;
+}
+.tag-category {
+    padding: 0;
+    margin: 0 20px;
+    border-bottom: none;
+}
+.tag-list {
+    list-style: none;
+    padding-block-start: 10px;
+    padding-inline-start: 30px;
+    padding-inline-end: 30px;
+}
+.tag-list li {
+    display: inline-block;
+}
+.tab-content li{
+    line-height: 30px;
+    margin-right: 3px;
+}
+.tab-content a{
+    background-color: #66b8ff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.tab-content a:hover{
+    color: #efefef;
+    box-shadow: 0 0 2px 2px;
+    background-color: #0294c0;
+}
+.btn-tag,
+.btn-tag:focus,
+.btn-tag.focus {
+    background-color: grey;
+    color: white;
+    margin-right: 10px;
+}
+.btn-tag:hover {
+    color: #e8e8e8;
+    box-shadow: 0 0 2px 2px;
+}
+.btn-tag .del-tag {
+    margin-left: 5px;
+}
+.btn-tag .del-tag:hover {
+    color: #0f0f0f;
+}
+.alert {
+    margin: 10px 0;
+}
+.warning {
+    background-color: #d9534f;
 }
 /*
  * This's used for JS to modify the operation date.

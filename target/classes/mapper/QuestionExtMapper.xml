@@ -25,4 +25,15 @@
         where id = #{id}
     </update>
 
+    <select id="selectRelated" parameterType="com.learning.springboot.model.Question" resultMap="BaseResultMap">
+        select 
+            id , title
+        from
+            question
+        where
+            (id != #{id}
+                and tag regexp #{tag})
+        limit 10
+    </select>
+
 </mapper>
