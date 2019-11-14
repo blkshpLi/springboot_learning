@@ -40,7 +40,7 @@ public class QuestionService {
      */
     public PaginationDTO list(Integer page, Integer size) {
         //创建分页对象
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
         paginationDTO.setPagination(totalCount, page, size);
         Integer offset = 5 * (paginationDTO.getPage() - 1);
@@ -61,7 +61,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setDataList(questionDTOList);
 
         return paginationDTO;
     }
@@ -75,7 +75,7 @@ public class QuestionService {
      */
     public PaginationDTO listByUserId(Long userId, Integer page, Integer size){
         //创建分页对象
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
         questionExample.setOrderByClause("gmt_create desc");
@@ -92,7 +92,7 @@ public class QuestionService {
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setDataList(questionDTOList);
 
         return paginationDTO;
     }

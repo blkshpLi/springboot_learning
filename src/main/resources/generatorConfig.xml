@@ -48,6 +48,8 @@
         <table schema="root" tableName="question" domainObjectName="Question" ></table>
         <!-- Comment -->
         <table schema="root" tableName="comment" domainObjectName="Comment" ></table>
+        <!-- Notification -->
+        <table schema="root" tableName="notification" domainObjectName="Notification" ></table>
 
     </context>
 </generatorConfiguration>

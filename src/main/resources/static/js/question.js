@@ -2,23 +2,31 @@ if (typeof jQuery === 'undefined') {
     throw new Error('main\'s JavaScript requires jQuery')
 }
 
+$(function() {
+    editormd.markdownToHTML("md-view", {
+
+    });
+});
+
+
 /**
  * 提交回复
  */
 function comment() {
     var questionId = $("#question_id").val();
     var content = $("#content").val();
-    comment2target(questionId, 1, content);
+    comment2target(questionId, 1, content, questionId);
 }
 
 function reply(btn) {
+    var questionId = $("#question_id").val();
     var id = btn.getAttribute("data-id");
     var content = $("#input-"+id).val();
-    comment2target(id, 2, content)
+    comment2target(id, 2, content, questionId)
 }
 
 
-function comment2target(targetId, type, content) {
+function comment2target(targetId, type, content, issueId) {
     if(!content) {
         alert("回复内容不能为空！！！");
         return;
@@ -30,7 +38,8 @@ function comment2target(targetId, type, content) {
         data: JSON.stringify({
             "parentId": targetId,
             "type": type,
-            "content": content
+            "content": content,
+            "issueId": issueId
         }),
         success: function (result) {
             if (result.code == 200){

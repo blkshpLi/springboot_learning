@@ -28,14 +28,18 @@ a:hover,a:focus {
     padding: 0;
     text-align: center;
 }
-.dropdown .tips {
-    left: -60px;
+.unread {
+    background-color: #4fccd9;
+    margin-top: -18px;
 }
-.dropdown .tips li a{
+.dropdown .tips {
+    left: -45px;
+}
+.dropdown li a{
     line-height: 40px;
     font-size: 14px;
 }
-.dropdown .tips li a:hover {
+.dropdown li a:hover {
     background-color: #efefef;
     color: #2aabd2;
     box-shadow: none;
@@ -43,6 +47,9 @@ a:hover,a:focus {
 .btn-publish {
     float: right;
     margin-bottom: 15px;
+}
+.media {
+    margin-top: 5px;
 }
 .media hr {
     margin: 10px 0;
@@ -301,11 +308,104 @@ a:hover,a:focus {
     background-color: #d9534f;
 }
 /*
+ * 个人主页的样式
+ */
+.content-box {
+    padding: 0 20px;
+}
+.options {
+    width: auto;
+    margin-top: -45px;
+    display: none;
+    float: right !important;
+}
+.options a {
+    color: #999999;
+    display: block;
+    padding: 0 10px;
+    margin-bottom: 3px;
+}
+.option-edit:hover {
+    color: #66b8ff;
+}
+.option-remove:hover {
+    color: #d9534f;
+}
+.options .glyphicon-remove:before {
+    vertical-align: text-bottom;
+}
+.btn-cancel,
+.btn-cancel:focus,
+.btn-cancel.focus {
+    background-color: grey;
+    color: white;
+}
+.btn-cancel:hover {
+    color: white;
+    box-shadow: 0 0 2px 2px #e8e8e8;
+    background-color: #646464;
+}
+.btn-remove,
+.btn-remove:focus,
+.btn-remove.focus {
+    background-color: #d9534f;
+    color: white;
+}
+.btn-remove:hover {
+    color: white;
+    box-shadow: 0px 0px 2px 2px #fcbcbb;
+    background-color: #d52e2a;
+}
+.content-title {
+    margin: 5px 0;
+    font-size: 20px;
+    text-align: center;
+    color: #337ab7;
+}
+.message-trash{
+    margin: -30px 20px 0;
+    float: right!important;
+    color: #c2c2c2;
+}
+.message-trash:hover,
+.message-trash:focus,
+.message-trash.focus {
+    color: #5bc0de;
+}
+.history-divider {
+    height: 0;
+    margin: 10px 20px 30px;
+    border-bottom: solid 1px #ccc;
+    display: flex;
+    justify-content: center;
+    -webkit-box-pack: center;
+    align-items: center;
+    -webkit-box-align: center;
+    color: #b0b0b0;
+    font-size: 15px;
+}
+.history-message {
+    padding: 0 20px;
+    background-color: white;
+    z-index: 1;
+}
+/*
  * This's used for JS to modify the operation date.
  * CSS style is not needed temporarily.
  */
 .time-ago {
 }
-.index-divider{
+.index-description {
+}
+.index-divider {
     margin-bottom: 0;
+}
+.horizon-divider {
+    border-right: solid 2px #efefef;
+}
+.community-footer {
+    text-align: center;
+    color: grey;
+    font-size: 13px;
+    margin-bottom: 15px;
 }

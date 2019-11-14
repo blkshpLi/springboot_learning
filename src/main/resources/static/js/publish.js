@@ -3,6 +3,24 @@ if (typeof jQuery === 'undefined') {
 }
 
 /**
+ * MD编辑器
+ */
+$(function() {
+    editormd("md-editor", {
+        width: "100%",
+        height: 500,
+        delay: 1000,
+        placeholder:"快来完善你的问题吧！！",
+        path: "/js/lib/",
+        imageUpload: true,
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "/file/upload",
+        toolbarIcons: "self"
+    });
+});
+
+
+/**
  * 切换下拉菜单的开关状态
  */
 $(function () {

@@ -4,7 +4,7 @@ if (typeof jQuery === 'undefined') {
 
 /**
  *导航栏切换active属性
- */
+
 $(function () {
     $(".navbar-nav").find("li").each(function () {
         var a = $(this).find("a:first")[0];
@@ -15,7 +15,7 @@ $(function () {
         }
     });
 });
-
+ */
 
 /**
  * 下拉框鼠标悬停事件

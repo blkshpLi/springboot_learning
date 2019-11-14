@@ -653,6 +653,66 @@ public class CommentExample {
             addCriterion("reply_count not between", value1, value2, "replyCount");
             return (Criteria) this;
         }
+
+        public Criteria andIssueIdIsNull() {
+            addCriterion("issue_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdIsNotNull() {
+            addCriterion("issue_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdEqualTo(Long value) {
+            addCriterion("issue_id =", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdNotEqualTo(Long value) {
+            addCriterion("issue_id <>", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdGreaterThan(Long value) {
+            addCriterion("issue_id >", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("issue_id >=", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdLessThan(Long value) {
+            addCriterion("issue_id <", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdLessThanOrEqualTo(Long value) {
+            addCriterion("issue_id <=", value, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdIn(List<Long> values) {
+            addCriterion("issue_id in", values, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdNotIn(List<Long> values) {
+            addCriterion("issue_id not in", values, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdBetween(Long value1, Long value2) {
+            addCriterion("issue_id between", value1, value2, "issueId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIssueIdNotBetween(Long value1, Long value2) {
+            addCriterion("issue_id not between", value1, value2, "issueId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.springboot.mapper.NotificationExtMapper">
+    <resultMap id="notificationBean" type="com.learning.springboot.dto.NotificationDTO">
+        <id column="n_id" property="id"/>
+        <result column="n_gmt_create" property="gmtCreate"/>
+        <result column="n_type" property="type"/>
+        <result column="n_status" property="status"/>
+
+        <association property="notifier" javaType="com.learning.springboot.model.User">
+            <id column="u_id" property="id"/>
+            <result column="u_name" property="name"/>
+            <result column="avatar_url" property="avatarUrl"/>
+        </association>
+        <association property="question" javaType="com.learning.springboot.model.Question">
+            <id column="q_id" property="id"/>
+            <result column="q_title" property="title"/>
+        </association>
+    </resultMap>
+
+    <select id="listByUserId" resultMap="notificationBean">
+        select  n.id 'n_id', n.gmt_create 'n_gmt_create', n.type 'n_type',n.status 'n_status',
+                q.id 'q_id', q.title 'q_title',
+                u.id 'u_id', u.name 'u_name',u.avatar_url 'avatar_url'
+            from notification n
+            left join user u on n.notifier = u.id
+            left join question q on n.outer_id = q.id
+        where n.receiver = #{userId}
+        order by n.gmt_create desc
+        limit #{size} offset #{offset}
+    </select>
+
+    <update id="updateStatus" parameterType="java.lang.Long">
+        update
+            notification
+        set
+            status = 1
+        where
+            receiver = #{userId} and status = 0
+    </update>
+
+</mapper>

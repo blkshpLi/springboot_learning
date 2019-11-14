@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PaginationDTO {
-    private List<QuestionDTO> questions;
+public class PaginationDTO<T> {
+
+    //该处使用泛型旨在将查询的List数据放入分页对象中
+    private List<T> dataList;
+
     private boolean showPrevious;
     private boolean showFirstPage;
     private boolean showNext;

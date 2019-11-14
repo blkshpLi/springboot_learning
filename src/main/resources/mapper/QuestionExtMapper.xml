@@ -36,4 +36,16 @@
         limit 10
     </select>
 
+    <select id="hot" resultMap="BaseResultMap">
+        select
+            id , title
+        from
+            question
+        where
+            DATE_SUB(CURDATE(), INTERVAL 1 MONTH ) &lt;= FROM_UNIXTIME(gmt_create/1000, '%Y-%m-%d')
+        order by
+            view_count desc,comment_count desc
+        limit 10
+    </select>
+
 </mapper>

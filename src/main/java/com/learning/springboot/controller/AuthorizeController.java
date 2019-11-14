@@ -67,7 +67,7 @@ public class AuthorizeController {
             user.setAvatarUrl(githubUser.getAvatarUrl());
             userService.createOrUpdate(user);
             Cookie cookie = new Cookie("token",tempToken);
-            cookie.setMaxAge(60*60);
+            cookie.setMaxAge(60*60*24);
             response.addCookie(cookie);
             return "redirect:" + s;
         }else{

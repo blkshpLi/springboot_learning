@@ -2,6 +2,8 @@ package com.learning.springboot.service;
 
 import com.learning.springboot.dto.CommentDTO;
 import com.learning.springboot.enums.CommentTypeEnum;
+import com.learning.springboot.enums.NotificationStatusEnum;
+import com.learning.springboot.enums.NotificationTypeEnum;
 import com.learning.springboot.exception.CustomizeErrorCode;
 import com.learning.springboot.exception.CustomizeException;
 import com.learning.springboot.mapper.*;
@@ -34,6 +36,9 @@ public class CommentService {
     @Autowired
     private CommentExtMapper commentExtMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
     @Transactional
     public void insert(Comment comment){
         if (comment.getParentId() == null || comment.getParentId()==0){
@@ -54,6 +59,8 @@ public class CommentService {
             commentMapper.insertSelective(comment);
             commentExtMapper.incReplyCount(parentId);
 
+            //创建通知并插入数据库
+            notificationMapper.insert(createNotify(comment, dbComment.getCommentator(), NotificationTypeEnum.REPLY_COMMENT));
         }
 
         if (comment.getType() == CommentTypeEnum.QUESTION.getType()){
@@ -64,7 +71,28 @@ public class CommentService {
             }
             commentMapper.insertSelective(comment);
             questionExtMapper.incComment(comment.getParentId());
+
+            //创建通知并插入数据库
+            notificationMapper.insert(createNotify(comment, dbQuestion.getCreator(), NotificationTypeEnum.REPLY_QUESTION));
         }
+    }
+
+    /**
+     * 创建新的通知
+     * @param comment
+     * @param receiver
+     * @param notificationTypeEnum
+     * @return
+     */
+    private Notification createNotify(Comment comment, Long receiver ,NotificationTypeEnum notificationTypeEnum){
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setNotifier(comment.getCommentator());
+        notification.setOuterId(comment.getIssueId());
+        notification.setReceiver(receiver);
+        notification.setType(notificationTypeEnum.getType());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        return notification;
     }
 
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type){

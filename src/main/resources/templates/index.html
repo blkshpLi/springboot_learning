@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.js" type="application/javascript"></script>
     <script src="/js/main.js" type="application/javascript"></script>
+    <script src="/js/index.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:replace="navigation :: nav"></div>
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 horizon-divider">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;发现</h2>
             <hr>
             <!-- 问题列表 -->
-            <div class="media" th:each="question : ${pagination.questions}">
+            <div class="media" th:each="question : ${pagination.dataList}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -28,7 +29,7 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
+                    <span class="index-description" th:text="${question.description}"></span><br>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span> 次浏览 • <span class="time-ago"
@@ -67,10 +68,17 @@
             </nav>
         </div>
         <div class="col-lg-3 hidden-md col-sm-12 hidden-xs">
-            <h3>热门话题</h3>
+            <div class="related-box">
+                <h3>热门话题</h3>
+                <ul>
+                    <li th:each="question : ${hot}">
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-
+<div th:replace="footer :: foot"></div>
 </body>
 </html>

@@ -5,9 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="/js/jquery-3.3.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.js" type="application/javascript"></script>
+    <script src="/js/editormd.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/editormd.min.css">
     <script src="/js/main.js" type="application/javascript"></script>
     <script src="/js/publish.js" type="application/javascript"></script>
 </head>
@@ -25,9 +27,10 @@
                     <label for="title">问题标题：</label>
                     <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="请输入您的问题标题">
                 </div>
-                <div class="form-group">
-                    <label for="title">问题补充（内容格式请参照右侧提示）：</label>
-                    <textarea class="form-control" th:text="${description}" id="description" name="description" cols="30" rows="10"></textarea>
+                <label for="description">问题补充（内容格式请参照右侧提示）：</label>
+                <div class="form-group" id="md-editor">
+
+                    <textarea class="form-control" style="display: none" th:text="${description}" id="description" name="description" cols="30" rows="10"></textarea>
                 </div>
 
                 <!-- 原本的添加标签部分
@@ -80,5 +83,6 @@
         </div>
     </div>
 </div>
+<div th:replace="footer :: foot"></div>
 </body>
 </html>

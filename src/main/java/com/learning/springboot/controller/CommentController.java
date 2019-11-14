@@ -38,6 +38,7 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setType(commentCreateDTO.getType());
         comment.setContent(commentCreateDTO.getContent());
+        comment.setIssueId(commentCreateDTO.getIssueId());
         comment.setGmtCreate(System.currentTimeMillis());
         commentService.insert(comment);
         return ResultDTO.okOf();

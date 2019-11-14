@@ -3,6 +3,7 @@ package com.learning.springboot.Interceptor;
 import com.learning.springboot.mapper.UserMapper;
 import com.learning.springboot.model.User;
 import com.learning.springboot.model.UserExample;
+import com.learning.springboot.service.NotificationService;
 import com.learning.springboot.util.ModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NotificationService notificationService;
 
     /**
      * 拦截访问
@@ -39,8 +43,11 @@ public class SessionInterceptor implements HandlerInterceptor {
                     userExample.createCriteria().andTokenEqualTo(token);
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size() != 0) {
-                        User user = (User)ModelUtils.convert(users.get(0) , new String[]{"id", "name", "avatarUrl"});
+                        User dbUser = users.get(0);
+                        User user = (User)ModelUtils.convert(dbUser , new String[]{"id", "name", "avatarUrl"});
+                        Long totalUnread = notificationService.countUnread(dbUser.getId());
                         request.getSession().setAttribute("user", user);
+                        request.getSession().setAttribute("notify", totalUnread);
                     }
                     break;
                 }

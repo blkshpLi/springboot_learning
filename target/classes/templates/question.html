@@ -7,15 +7,19 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <script src="/js/bootstrap.js" type="application/javascript"></script>
     <script src="/js/main.js" type="application/javascript"></script>
     <script src="/js/question.js" type="application/javascript"></script>
+    <script src="/js/editormd.js"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
 </head>
 <body>
 <div th:replace="navigation :: nav"></div>
     <div class="container-fluid main">
         <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 horizon-divider">
                 <!-- 主要内容 -->
                 <div class="media">
                     <h2><span th:text="${question.title}"></span></h2>
@@ -27,7 +31,9 @@
                 </div>
                 <hr>
                 <!-- 提问内容 -->
-                <div th:text="${question.description}"></div>
+                <div id="md-view">
+                    <textarea th:text="${question.description}"></textarea>
+                </div>
                 <hr>
                 <!-- 标签 -->
                 <div class="label-box">
@@ -123,10 +129,11 @@
                     </ul>
                 </div>
                 <div class="img-box">
-                    <img src="/image/guraburu.png">
+                    <img src="/images/guraburu.png">
                 </div>
             </div>
         </div>
     </div>
+<div th:replace="footer :: foot"></div>
 </body>
 </html>

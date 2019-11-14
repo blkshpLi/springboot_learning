@@ -23,5 +23,7 @@ public class CommentDTO {
 
     private Integer replyCount;
 
+    private Long issueId;
+
     private User user;
 }

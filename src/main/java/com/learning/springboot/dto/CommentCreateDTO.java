@@ -11,4 +11,6 @@ public class CommentCreateDTO {
 
     private String content;
 
+    private Long issueId;
+
 }

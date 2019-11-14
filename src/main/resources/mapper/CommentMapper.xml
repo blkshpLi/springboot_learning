@@ -11,6 +11,7 @@
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="reply_count" jdbcType="INTEGER" property="replyCount" />
+    <result column="issue_id" jdbcType="BIGINT" property="issueId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, parent_id, type, commentator, gmt_create, gmt_modified, like_count, content, 
-    reply_count
+    reply_count, issue_id
   </sql>
   <select id="selectByExample" parameterType="com.learning.springboot.model.CommentExample" resultMap="BaseResultMap">
     select
@@ -107,12 +108,12 @@
   <insert id="insert" parameterType="com.learning.springboot.model.Comment">
     insert into comment (id, parent_id, type, 
       commentator, gmt_create, gmt_modified, 
-      like_count, content, reply_count
-      )
+      like_count, content, reply_count, 
+      issue_id)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
       #{commentator,jdbcType=BIGINT}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{replyCount,jdbcType=INTEGER}
-      )
+      #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{replyCount,jdbcType=INTEGER}, 
+      #{issueId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.learning.springboot.model.Comment">
     insert into comment
@@ -144,6 +145,9 @@
       <if test="replyCount != null">
         reply_count,
       </if>
+      <if test="issueId != null">
+        issue_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,6 +176,9 @@
       </if>
       <if test="replyCount != null">
         #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="issueId != null">
+        #{issueId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -211,6 +218,9 @@
       <if test="record.replyCount != null">
         reply_count = #{record.replyCount,jdbcType=INTEGER},
       </if>
+      <if test="record.issueId != null">
+        issue_id = #{record.issueId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -226,7 +236,8 @@
       gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
       like_count = #{record.likeCount,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
-      reply_count = #{record.replyCount,jdbcType=INTEGER}
+      reply_count = #{record.replyCount,jdbcType=INTEGER},
+      issue_id = #{record.issueId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -258,6 +269,9 @@
       <if test="replyCount != null">
         reply_count = #{replyCount,jdbcType=INTEGER},
       </if>
+      <if test="issueId != null">
+        issue_id = #{issueId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -270,7 +284,8 @@
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
       like_count = #{likeCount,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      reply_count = #{replyCount,jdbcType=INTEGER}
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      issue_id = #{issueId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="com.learning.springboot.model.CommentExample" resultMap="BaseResultMap">
