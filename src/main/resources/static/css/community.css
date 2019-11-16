@@ -401,7 +401,7 @@ a:hover,a:focus {
     margin-bottom: 0;
 }
 .horizon-divider {
-    border-right: solid 2px #efefef;
+    border-right: solid 1.5px #efefef;
 }
 .community-footer {
     text-align: center;

@@ -42,7 +42,7 @@
         from
             question
         where
-            DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= FROM_UNIXTIME(gmt_create/1000, '%Y-%m-%d')
+            DATE_SUB(CURDATE(), INTERVAL 1 MONTH ) &lt;= FROM_UNIXTIME(gmt_create/1000, '%Y-%m-%d')
         order by
             view_count desc,comment_count desc
         limit 10

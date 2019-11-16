@@ -101,7 +101,7 @@
                 </div>
                 <div th:if="${session.user == null}" class="media">
                     <div class="tip-login">
-                        请先<a href="https://github.com/login/oauth/authorize?client_id=af4e0fa956cfc9005236&redirect_uri=http://localhost:8883/callback&scope=user&state=1">登录</a>,再进行回复
+                        请先<a href="/github/bind">登录</a>,再进行回复
                     </div>
                     <textarea class="form-control comment" cols="30" rows="6" disabled="disabled">
                     </textarea>

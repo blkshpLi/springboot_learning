@@ -3,7 +3,6 @@ package com.learning.springboot.controller;
 
 import com.learning.springboot.dto.AccessToken;
 import com.learning.springboot.dto.GithubUser;
-import com.learning.springboot.mapper.UserMapper;
 import com.learning.springboot.model.User;
 import com.learning.springboot.provider.GithubProvider;
 import com.learning.springboot.service.UserService;
@@ -34,6 +33,15 @@ public class AuthorizeController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/github/bind")
+    public String githubAuthorize(){
+        return "redirect:https://github.com/login/oauth/authorize?"
+                + "client_id=" + clientId
+                + "&redirect_uri=" + redirect_uri
+                + "&scope=user"
+                + "&state=1";
+    }
+
     /**
      * Github账号授权
      * @param code
@@ -56,7 +64,6 @@ public class AuthorizeController {
         String token = githubProvider.getAccessToken(accessToken);
         GithubUser githubUser = githubProvider.getUser(token);
         String s = request.getHeader("Referer");
-        s.replace("http://localhost:8883","");
         //System.out.println(user.getLogin());  //获取github用户名
         if(githubUser != null && githubUser.getId() != null){
             User user = new User();
