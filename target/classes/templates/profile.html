@@ -35,7 +35,7 @@
 <!-- 内容主体 -->
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 horizon-divider">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
             <div th:if="${section=='questions'}">
@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 horizon-divider">
             <div class="list-group">
                 <a href="/profile/questions" th:class="${section=='questions'}? 'active list-group-item' : 'list-group-item'">我的问题</a>
                 <a href="/profile/replies" th:class="${section=='replies'}? 'active list-group-item' : 'list-group-item'">回复我的</a>

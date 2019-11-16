@@ -401,11 +401,17 @@ a:hover,a:focus {
     margin-bottom: 0;
 }
 .horizon-divider {
-    border-right: solid 2px #efefef;
+    border-left: solid 1.5px #efefef;
 }
 .community-footer {
     text-align: center;
     color: grey;
     font-size: 13px;
     margin-bottom: 15px;
+}
+.no-question {
+    padding: 40px 0;
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 20px;
 }

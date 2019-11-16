@@ -3,7 +3,6 @@ package com.learning.springboot.provider;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.aliyun.oss.model.OSSObject;
 import com.learning.springboot.exception.CustomizeErrorCode;
 import com.learning.springboot.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,7 +62,7 @@ public class OSSProvider {
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 
         try{
-            Date expiration = new Date(new Date().getTime() + 3600*10000);
+            Date expiration = new Date(new Date().getTime() + 7*24*3600*1000);
             String url = ossClient.generatePresignedUrl(bucketName, generatedName, expiration).toString();
             return url;
         } catch (OSSException oe) {
