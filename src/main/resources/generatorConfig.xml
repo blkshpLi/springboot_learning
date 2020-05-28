@@ -45,11 +45,16 @@
         <!-- User -->
         <table schema="root" tableName="user" domainObjectName="User" ></table>
         <!-- Question -->
-        <table schema="root" tableName="question" domainObjectName="Question" ></table>
+        <table schema="root" tableName="question" domainObjectName="Question" >
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
         <!-- Comment -->
         <table schema="root" tableName="comment" domainObjectName="Comment" ></table>
         <!-- Notification -->
         <table schema="root" tableName="notification" domainObjectName="Notification" ></table>
+        <!-- CommentLike -->
+        <table schema="root" tableName="comment_like" domainObjectName="CommentLike" ></table>
+
 
     </context>
 </generatorConfiguration>

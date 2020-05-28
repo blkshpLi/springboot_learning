@@ -654,63 +654,63 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdIsNull() {
-            addCriterion("issue_id is null");
+        public Criteria andReplyToIsNull() {
+            addCriterion("reply_to is null");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdIsNotNull() {
-            addCriterion("issue_id is not null");
+        public Criteria andReplyToIsNotNull() {
+            addCriterion("reply_to is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdEqualTo(Long value) {
-            addCriterion("issue_id =", value, "issueId");
+        public Criteria andReplyToEqualTo(Long value) {
+            addCriterion("reply_to =", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdNotEqualTo(Long value) {
-            addCriterion("issue_id <>", value, "issueId");
+        public Criteria andReplyToNotEqualTo(Long value) {
+            addCriterion("reply_to <>", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdGreaterThan(Long value) {
-            addCriterion("issue_id >", value, "issueId");
+        public Criteria andReplyToGreaterThan(Long value) {
+            addCriterion("reply_to >", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("issue_id >=", value, "issueId");
+        public Criteria andReplyToGreaterThanOrEqualTo(Long value) {
+            addCriterion("reply_to >=", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdLessThan(Long value) {
-            addCriterion("issue_id <", value, "issueId");
+        public Criteria andReplyToLessThan(Long value) {
+            addCriterion("reply_to <", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdLessThanOrEqualTo(Long value) {
-            addCriterion("issue_id <=", value, "issueId");
+        public Criteria andReplyToLessThanOrEqualTo(Long value) {
+            addCriterion("reply_to <=", value, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdIn(List<Long> values) {
-            addCriterion("issue_id in", values, "issueId");
+        public Criteria andReplyToIn(List<Long> values) {
+            addCriterion("reply_to in", values, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdNotIn(List<Long> values) {
-            addCriterion("issue_id not in", values, "issueId");
+        public Criteria andReplyToNotIn(List<Long> values) {
+            addCriterion("reply_to not in", values, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdBetween(Long value1, Long value2) {
-            addCriterion("issue_id between", value1, value2, "issueId");
+        public Criteria andReplyToBetween(Long value1, Long value2) {
+            addCriterion("reply_to between", value1, value2, "replyTo");
             return (Criteria) this;
         }
 
-        public Criteria andIssueIdNotBetween(Long value1, Long value2) {
-            addCriterion("issue_id not between", value1, value2, "issueId");
+        public Criteria andReplyToNotBetween(Long value1, Long value2) {
+            addCriterion("reply_to not between", value1, value2, "replyTo");
             return (Criteria) this;
         }
     }

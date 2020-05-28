@@ -102,6 +102,17 @@ function dateFormat(dts){
         }
         return format;
     }
-    var newDate = jsonDate.format("yyyy-MM-dd hh:mm:ss");
+    var newDate = jsonDate.format("yyyy-MM-dd hh:mm");
     return newDate;
 }
+
+$(function() {
+
+    $(".related-box").find(".number-list").each(function(){
+        var number = $(this).text();
+        if(parseInt(number) <= 3){
+            $(this).addClass("on");
+        }
+    });
+
+});

@@ -4,6 +4,7 @@ import com.learning.springboot.dto.CommentDTO;
 import com.learning.springboot.dto.QuestionDTO;
 import com.learning.springboot.enums.CommentTypeEnum;
 import com.learning.springboot.model.Question;
+import com.learning.springboot.model.User;
 import com.learning.springboot.service.CommentService;
 import com.learning.springboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,12 +46,20 @@ public class QuestionController {
         }
         request.getSession().setAttribute("questionId",id);
 
+        User user = (User) request.getSession().getAttribute("user");
+
         //获取问题信息
         QuestionDTO questionDTO = questionService.getById(id);
 
         List<Question> relatedQuestions = questionService.selectedRelated(questionDTO);
 
-        List<CommentDTO> commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
+        List<CommentDTO> commentDTOs;
+
+        if(user == null){
+            commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
+        } else {
+            commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.QUESTION, user);
+        }
         model.addAttribute("question",questionDTO);
         model.addAttribute("relatedQuestions",relatedQuestions);
         model.addAttribute("comments",commentDTOs);

@@ -26,4 +26,9 @@ public class CommentDTO {
     private Long issueId;
 
     private User user;
+
+    private User replyTo;
+
+    private boolean agreed;
+
 }

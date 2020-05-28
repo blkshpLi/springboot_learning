@@ -71,7 +71,7 @@ public class ProfileController {
             model.addAttribute("sectionName","我的问题");
         } else if ("replies".equals(action)){
             PaginationDTO pagination = notificationService.list(user.getId(),page,size);
-            notificationService.read(user.getId());
+            //notificationService.read(user.getId());
             model.addAttribute("pagination",pagination);
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","回复我的");
@@ -95,6 +95,17 @@ public class ProfileController {
             return new ResultDTO(3,"您并非该问题的发起者");
         }
         questionMapper.deleteByPrimaryKey(id);
+        return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @PostMapping("/read")
+    public ResultDTO read(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if (user == null){
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+        notificationService.read(user.getId());
         return ResultDTO.okOf();
     }
 

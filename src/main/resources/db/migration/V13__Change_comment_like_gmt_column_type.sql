@@ -1,0 +1,1 @@
+alter table comment_like modify gmt_create bigint not null;

@@ -11,6 +11,6 @@ public class CommentCreateDTO {
 
     private String content;
 
-    private Long issueId;
+    private Long replyTo;
 
 }

@@ -19,7 +19,7 @@ public class Comment {
 
     private Integer replyCount;
 
-    private Long issueId;
+    private Long replyTo;
 
     public Long getId() {
         return id;
@@ -93,11 +93,11 @@ public class Comment {
         this.replyCount = replyCount;
     }
 
-    public Long getIssueId() {
-        return issueId;
+    public Long getReplyTo() {
+        return replyTo;
     }
 
-    public void setIssueId(Long issueId) {
-        this.issueId = issueId;
+    public void setReplyTo(Long replyTo) {
+        this.replyTo = replyTo;
     }
 }

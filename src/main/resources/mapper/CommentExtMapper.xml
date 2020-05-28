@@ -19,4 +19,10 @@
         where id = #{id}
     </update>
 
+    <update id="incLikeCount" parameterType="java.lang.Long">
+        update comment
+        set like_count = like_count + 1
+        where id = #{id}
+    </update>
+
 </mapper>

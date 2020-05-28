@@ -11,12 +11,15 @@ import com.learning.springboot.model.Question;
 import com.learning.springboot.model.QuestionExample;
 import com.learning.springboot.model.User;
 import com.learning.springboot.util.ModelUtils;
+import io.searchbox.client.JestClient;
+import io.searchbox.core.Index;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    JestClient jestClient;
 
     /**
      * 传递首页问题列表信息
@@ -109,6 +115,20 @@ public class QuestionService {
         }else{
             question.setGmtModified(System.currentTimeMillis());
             questionMapper.updateByPrimaryKeySelective(question);
+        }
+        createIndex(question);
+    }
+
+    /**
+     * 创建提问的索引
+     * @param question
+     */
+    public void createIndex(Question question){
+        Index index = new Index.Builder(question).index("community").type("question").build();
+        try{
+            jestClient.execute(index);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 

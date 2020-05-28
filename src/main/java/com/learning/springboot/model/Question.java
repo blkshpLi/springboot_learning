@@ -1,6 +1,12 @@
 package com.learning.springboot.model;
 
+import io.searchbox.annotations.JestId;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName = "community",type = "question")
 public class Question {
+
+    @JestId
     private Long id;
 
     private String title;

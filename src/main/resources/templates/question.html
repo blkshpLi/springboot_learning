@@ -51,18 +51,24 @@
                 </h3>
                 <hr>
                 <!-- 评论展示 -->
-                <div class="media" th:if="${comments != null}" th:each="comment : ${comments}">
+                <div class="media" th:if="${comments != null}" th:each="comment : ${comments}"  th:id="${'comment-'+comment.id}">
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-rounded" th:src="${comment.user.avatarUrl}">
                         </a>
+
                     </div>
                     <div class="media-body">
                         <a href="#" class="media-heading" th:text="${comment.user.name}"></a><br>
                         <span th:text="${comment.content}"></span><br>
-                        <button type="button"  class="btn btn-comment ">
+                        <button th:if="${session.user == null}" type="button"  class="btn btn-agree disabled">
                             <span class="glyphicon glyphicon-thumbs-up"></span>
-                            <span th:text="${comment.likeCount}"></span>
+                            <span class="agree-count" th:text="${comment.likeCount}"></span>
+                        </button>
+                        <button th:if="${session.user != null}" type="button"  th:data-id="${comment.id}"
+                                th:class="${comment.agreed}?'btn btn-agree agreed':'btn btn-agree'">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="agree-count" th:text="${comment.likeCount}"></span>
                         </button>
                         <button type="button" class="btn btn-comment" th:data-id="${comment.id}" onclick="collapseComment(this)">
                             <span class="glyphicon glyphicon-comment"></span>
@@ -71,15 +77,8 @@
                         <span class="comment-date time-ago" th:text="${comment.gmtCreate}"></span>
 
                         <!-- 二级评论 -->
-                        <div class="collapse comment-box" th:id="${'comment-'+comment.id}">
-                            <div th:if="${session.user != null}" class="reply-box">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="分享你的知识吧！！" th:id="${'input-'+comment.id}">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-reply" th:data-id="${comment.id}" onclick="reply(this)">回复</button>
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="collapse comment-box">
+
                         </div>
                     </div>
                     <hr>

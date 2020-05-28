@@ -10,6 +10,9 @@ $(function () {
     })
 });
 
+/**
+ * 删除问题
+ */
 $(function () {
     $(".row .media .option-remove").click(function () {
 
@@ -28,7 +31,7 @@ $(function () {
                 "/profile/questions/remove",
                 {"id" : questionId},
                 function (result) {
-                    if (result.code == 200){
+                    if (result.code === 200){
                         window.location.reload();
                     } else {
                         alert(result.message);
@@ -41,7 +44,38 @@ $(function () {
     });
 });
 
+/**
+ * 更新通知已读状态
+ */
+$(function (){
+    var newMessage = $(".new-message");
+    if(newMessage.text() !== ""){
+        var isBlank = newMessage.find(".media").text();
+        if (isBlank === "" && $(".pagination .active a").text() == 1){
+            var noComment = "<div class='no-comment'>暂无新通知</div>";
+            newMessage.append(noComment);
+        } else{
+            newMessage.find(".media:last").find("hr").remove();
+            setTimeout(function () {
+                $.post(
+                    "/read",
+                    function (result) {
+                        if (result.code === 200){
+                            $(".unread").remove();
+                        } else {
+                            alert(result.message);
+                        }
+                        console.log(result);
+                    }
+                );
+            },2000);
+        }
+    }
+});
 
+/**
+ * 删除消息通知
+ */
 $(function () {
     $(".row .media .message-trash").click(function () {
         var notification = $(this).parent();
@@ -49,7 +83,7 @@ $(function () {
         $.get(
             "/profile/replies/del/" + id,
             function (result) {
-                if (result.code == 200){
+                if (result.code === 200){
                     window.location.reload();
                 } else {
                     notification.remove();

@@ -10,6 +10,7 @@
     <script src="/js/bootstrap.js" type="application/javascript"></script>
     <script src="/js/main.js" type="application/javascript"></script>
     <script src="/js/index.js" type="application/javascript"></script>
+    <script src="/js/navigation.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:replace="navigation :: nav"></div>
@@ -74,7 +75,8 @@
             <div class="related-box">
                 <h3>热门话题</h3>
                 <ul>
-                    <li th:each="question : ${hot}">
+                    <li th:each="question,questionStat : ${hot}">
+                        <span class="number-list" th:text="${questionStat.index + 1}"></span>
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </li>
                 </ul>

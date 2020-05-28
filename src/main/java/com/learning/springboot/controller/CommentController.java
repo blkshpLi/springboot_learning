@@ -38,16 +38,34 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setType(commentCreateDTO.getType());
         comment.setContent(commentCreateDTO.getContent());
-        comment.setIssueId(commentCreateDTO.getIssueId());
+        comment.setReplyTo(commentCreateDTO.getReplyTo());
         comment.setGmtCreate(System.currentTimeMillis());
         commentService.insert(comment);
         return ResultDTO.okOf();
     }
 
     @GetMapping("/comment/{id}")
-    public ResultDTO<List<CommentDTO>> getComments(@PathVariable(name = "id") Long id ) {
-        List<CommentDTO> commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+    public ResultDTO<List<CommentDTO>> getComments(@PathVariable(name = "id") Long id,
+                                                   HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute("user");
+        List<CommentDTO> commentDTOs;
+        if(user == null){
+            commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        } else {
+            commentDTOs = commentService.listByTargetId(id, CommentTypeEnum.COMMENT, user);
+        }
         return ResultDTO.okOf(commentDTOs);
+    }
+
+    @PostMapping("/agree/{id}")
+    public ResultDTO agreeComment(@PathVariable(name = "id") Long id,
+                                  HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if (user == null){
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+        commentService.agreeComment(id, user.getId());
+        return ResultDTO.okOf();
     }
 
 }
