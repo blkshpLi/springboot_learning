@@ -23,6 +23,12 @@
                 <!-- 主要内容 -->
                 <div class="media">
                     <h2><span th:text="${question.title}"></span></h2>
+                    <div class="question-operation">
+                        <a class="follow" href="javascript:;">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 关注</a>
+                        <a class="collect" href="javascript:;">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 收藏</a>
+                    </div>
                     <span class="text-desc">
                         作者：<span th:text="${question.user.name}"></span>&nbsp;|
                         发布时间：<span class="time-ago" th:text="${question.gmtCreate}"></span>&nbsp;|
@@ -95,7 +101,7 @@
                     </div>
 
                     <input type="hidden" id="question_id" th:value="${question.id}">
-                    <textarea id="content" class="form-control comment"cols="30" rows="6" placeholder="请输入回复内容"></textarea>
+                    <textarea id="content" class="form-control comment" cols="30" rows="6" placeholder="请输入回复内容"></textarea>
                     <button type="button" class="btn btn-reply pull-right" onclick="comment()">回复</button>
                 </div>
                 <div th:if="${session.user == null}" class="media">

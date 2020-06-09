@@ -220,4 +220,24 @@ public class CommentService {
                     NotificationTypeEnum.AGREE_COMMENT));
         }
     }
+
+    /**
+     * 根据要删除的问题ID批量删除所有与其相关的一级评论和二级评论
+     * @param id
+     */
+    public void deleteByTargetId(Long id){
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria()
+                .andParentIdEqualTo(id)
+                .andTypeEqualTo(1);
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        if(comments.size() != 0){
+            List<Long> firstIds = comments.stream().map(comment -> comment.getId()).distinct().collect(Collectors.toList());
+            CommentExample secondCommentExample = new CommentExample();
+            secondCommentExample.createCriteria().andParentIdIn(firstIds).andTypeEqualTo(2);
+            commentMapper.deleteByExample(secondCommentExample);
+            commentMapper.deleteByExample(commentExample);
+        }
+    }
+
 }

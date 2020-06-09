@@ -12,6 +12,7 @@ import com.learning.springboot.model.QuestionExample;
 import com.learning.springboot.model.User;
 import com.learning.springboot.util.ModelUtils;
 import io.searchbox.client.JestClient;
+import io.searchbox.core.Delete;
 import io.searchbox.core.Index;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -133,6 +134,20 @@ public class QuestionService {
     }
 
     /**
+     * 删除es中目标提问的数据
+     * @param id
+     */
+    public void deleteData(Long id){
+        String targetId = String.valueOf(id);
+        Delete delete = new Delete.Builder(targetId).index("community").type("question").build();
+        try{
+            jestClient.execute(delete);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 查看问题信息
      * @param id
      * @return
@@ -159,6 +174,11 @@ public class QuestionService {
         questionExtMapper.incView(id);
     }
 
+    /**
+     * 展示相关问题
+     * @param questionDTO
+     * @return
+     */
     public List<Question> selectedRelated(QuestionDTO questionDTO) {
         if(StringUtils.isBlank(questionDTO.getTag())){
             return null;

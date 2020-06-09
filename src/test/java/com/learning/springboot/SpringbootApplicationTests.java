@@ -5,6 +5,7 @@ import com.learning.springboot.model.Question;
 import com.learning.springboot.model.QuestionExample;
 import com.learning.springboot.repository.QuestionRepository;
 import io.searchbox.client.JestClient;
+import io.searchbox.core.Delete;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
@@ -52,6 +53,17 @@ public class SpringbootApplicationTests {
         Index index = new Index.Builder(question).index("community").type("question").build();
         try{
             jestClient.execute(index);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteData(){
+        String id = "26";
+        Delete delete = new Delete.Builder(id).index("community").type("question").build();
+        try{
+            jestClient.execute(delete);
         }catch (IOException e){
             e.printStackTrace();
         }

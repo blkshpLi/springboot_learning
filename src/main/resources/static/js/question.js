@@ -145,101 +145,105 @@ function collapseComment(btn) {
             }
 
         });
-    }
-
-    //绑定回复评论的按钮
-    commentBox.on("click",".btn-reply",function () {
-        var parentId = $(this).closest(".reply-box").attr("data-parent-id");
-        var replyTo = $(this).attr("data-reply-id");
-        var content = $("#reply-content-" + replyTo).val();
-        comment2target(parentId, 2, content, replyTo);
-    });
-
-    //检测用户是否登录
-    var noLogin = $("body").find(".tip-login").text();
-    var userName = $("#comment-"+id).find(".media-heading").first().text();
-
-    //已登录点击回复图标显示回复框
-    if(noLogin == ""){
-
-        $("body").find(".reply-box").remove();
-
-        //回复框
-        var replyBox = "<div class='reply-box' data-parent-id='" + id + "'>" +
-            "<div class='input-group'>" +
-            "<input type='text' class='form-control' id='reply-content-" + id + "' placeholder='@ " + userName + " ：'>" +
-            "<span class='input-group-btn'>" +
-            "<button type='button' class='btn btn-reply' data-reply-id='" + id + "'>回复</button>" +
-            "</span>" +
-            "</div>" +
-            "</div>";
-
-        commentBox.append(replyBox);
-
-        //绑定点赞按钮
-        commentBox.on("click",".like",function () {
-            var btnLike = $(this);
-            var media = $(this).closest(".media");
-            var id = media.attr("data-id");
-            var userName = media.find(".media-heading").text();
-            var currentUser = $("body").find(".user-name").find(".media-heading").text();
-            if(userName != currentUser){
-                $.post(
-                    "/agree/"+id,
-                    function (result) {
-                        if (result.code == 200){
-                            var agreeCount = btnLike.find(".liked-count");
-                            var count = agreeCount.text();
-                            btnLike.addClass("liked");
-                            agreeCount.text("");
-                            agreeCount.text(" " + (++count));
-                        } else {
-                            alert(result.message);
-                        }
-                    }
-                );
-            }
-        });
-
-        //绑定二级评论回复按钮
-        commentBox.on("click",".reply",function () {
+        //绑定回复评论的按钮
+        commentBox.on("click",".btn-reply",function () {
             var parentId = $(this).closest(".reply-box").attr("data-parent-id");
-            var media = $(this).closest(".media");
-            var id = media.attr("data-id");
-            var userName = media.find(".media-heading").text();
-            var reply = media.closest(".comment-box").find(".reply-box");
-            var text = reply.text();
-            if (text != "") {
-                reply.find(".form-control").attr("id" , "reply-content-" + id);
-                reply.find(".form-control").attr("placeholder" , "@ " + userName + " ：");
-                reply.find(".btn-reply").attr("data-reply-id" , id);
-            } else {
-                $("body").find(".reply-box").remove();
-
-                //回复框
-                var replyBox = "<div class='reply-box' data-parent-id='" + parentId + "'>" +
-                    "<div class='input-group'>" +
-                    "<input type='text' class='form-control' id='reply-content-" + id + "' placeholder='@ " + userName + " ：'>" +
-                    "<span class='input-group-btn'>" +
-                    "<button type='button' class='btn btn-reply' data-reply-id='" + id + "'>回复</button>" +
-                    "</span>" +
-                    "</div>" +
-                    "</div>";
-
-                commentBox.append(replyBox);
-            }
-            $("html, body").animate({
-                scrollTop: $(".reply-box").offset().top - 300
-            },0);
+            var replyTo = $(this).attr("data-reply-id");
+            var content = $("#reply-content-" + replyTo).val();
+            comment2target(parentId, 2, content, replyTo);
         });
 
-    }else{
-        $("body").find(".reply-box").remove();
-        //未登录不能回复
-        commentBox.on("click",".reply",function () {
-            alert("请先登录！");
-        });
+        //检测用户是否登录
+        var noLogin = $("body").find(".tip-login").text();
+        var userName = $("#comment-"+id).find(".media-heading").first().text();
+
+        //已登录点击回复图标显示回复框
+        if(noLogin == ""){
+
+            $("body").find(".reply-box").remove();
+
+            //回复框
+            var replyBox = "<div class='reply-box' data-parent-id='" + id + "'>" +
+                "<div class='input-group'>" +
+                "<input type='text' class='form-control' id='reply-content-" + id + "' placeholder='@ " + userName + " ：'>" +
+                "<span class='input-group-btn'>" +
+                "<button type='button' class='btn btn-reply' data-reply-id='" + id + "'>回复</button>" +
+                "</span>" +
+                "</div>" +
+                "</div>";
+
+            commentBox.append(replyBox);
+
+            //绑定点赞按钮
+            commentBox.on("click",".like",function () {
+                var btnLike = $(this);
+                var media = $(this).closest(".media");
+                var id = media.attr("data-id");
+                var userName = media.find(".media-heading").text();
+                var currentUser = $("body").find(".user-name").find(".media-heading").text();
+                if(userName != currentUser){
+                    $.post(
+                        "/agree/"+id,
+                        function (result) {
+                            if (result.code == 200){
+                                var agreeCount = btnLike.find(".liked-count");
+                                var count = agreeCount.text();
+                                btnLike.addClass("liked");
+                                agreeCount.text("");
+                                agreeCount.text(" " + (++count));
+                            } else {
+                                alert(result.message);
+                            }
+                        }
+                    );
+                }
+            });
+
+            //绑定二级评论回复按钮
+            commentBox.on("click",".reply",function () {
+                var parentId = $(this).closest(".reply-box").attr("data-parent-id");
+                var media = $(this).closest(".media");
+                var id = media.attr("data-id");
+                var userName = media.find(".media-heading").text();
+                var reply = media.closest(".comment-box").find(".reply-box");
+                var text = reply.text();
+                if (text != "") {
+                    reply.find(".form-control").attr("id" , "reply-content-" + id);
+                    reply.find(".form-control").attr("placeholder" , "@ " + userName + " ：");
+                    reply.find(".btn-reply").attr("data-reply-id" , id);
+                } else {
+                    $("body").find(".reply-box").remove();
+
+                    //回复框
+                    var replyBox = "<div class='reply-box' data-parent-id='" + parentId + "'>" +
+                        "<div class='input-group'>" +
+                        "<input type='text' class='form-control' id='reply-content-" + id + "' placeholder='@ " + userName + " ：'>" +
+                        "<span class='input-group-btn'>" +
+                        "<button type='button' class='btn btn-reply' data-reply-id='" + id + "'>回复</button>" +
+                        "</span>" +
+                        "</div>" +
+                        "</div>";
+
+                    commentBox.append(replyBox);
+                }
+                $("html, body").animate({
+                    scrollTop: $(".reply-box").offset().top - 300
+                },0);
+            });
+
+        }else{
+            $("body").find(".reply-box").remove();
+            //未登录不能回复
+            commentBox.on("click",".like",function () {
+                alert("登录后才能点赞哦！");
+            });
+            commentBox.on("click",".reply",function () {
+                alert("请先登录再进行回复！");
+            });
+        }
     }
+
+
 
     //切换对应的二级评论展开状态
     commentBox.toggleClass("in");
@@ -252,5 +256,31 @@ $(function() {
         var date = span.text();
         var newDate = assertTime(date);
         span.text(newDate);
+    });
+});
+
+//
+$(function () {
+    $(".follow").click(function () {
+        if($(this).hasClass("followed")){
+            $(this).empty();
+            $(this).prepend("<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> 关注");
+            $(this).removeClass("followed");
+        }else{
+            $(this).empty();
+            $(this).prepend("已关注");
+            $(this).addClass("followed");
+        }
+    });
+    $(".collect").click(function () {
+        if($(this).hasClass("collected")){
+            $(this).empty();
+            $(this).prepend("<span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\"></span> 收藏");
+            $(this).removeClass("collected");
+        }else{
+            $(this).empty();
+            $(this).prepend("已收藏");
+            $(this).addClass("collected");
+        }
     });
 });

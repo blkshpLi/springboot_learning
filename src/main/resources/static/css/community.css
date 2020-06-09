@@ -523,3 +523,30 @@ em {
     background-color: #2aabd2;
     color: white;
 }
+
+.question-operation {
+    float: right !important;
+    margin-top: -2px;
+    margin-right: 10px;
+}
+.question-operation a{
+    margin-right: 5px;
+    color: white;
+    background-color: #5bc0de;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.question-operation a:hover{
+    background-color: #5ba8de;
+}
+.question-operation .glyphicon{
+    vertical-align: text-top;
+}
+.question-operation .followed,
+.question-operation .followed:hover{
+    background-color: #ccc;
+}
+.question-operation .collected,
+.question-operation .collected:hover{
+    background-color: #ccc;
+}

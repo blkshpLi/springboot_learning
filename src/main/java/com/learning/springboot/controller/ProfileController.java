@@ -8,6 +8,7 @@ import com.learning.springboot.mapper.NotificationExtMapper;
 import com.learning.springboot.mapper.QuestionMapper;
 import com.learning.springboot.model.Question;
 import com.learning.springboot.model.User;
+import com.learning.springboot.service.CommentService;
 import com.learning.springboot.service.NotificationService;
 import com.learning.springboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private NotificationService notificationService;
@@ -94,6 +98,8 @@ public class ProfileController {
         if (question.getCreator() != user.getId()) {
             return new ResultDTO(3,"您并非该问题的发起者");
         }
+        commentService.deleteByTargetId(id);
+        questionService.deleteData(id);
         questionMapper.deleteByPrimaryKey(id);
         return ResultDTO.okOf();
     }
